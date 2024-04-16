@@ -15,15 +15,16 @@ collections:
       - label: "Songs"
         name: "songs"
         widget: "list"
-        summary: '{{fields.songname}} - {{fiends.artistname}}'
+        summary: '{{fields.songname}} - {{fields.artistname}}'
         fields: 
           - {label: Song Name, name: songname, widget: string}
           - {label: Artist Name, name: artistname, widget: string}
           - {label: Link, name: link, widget: string}
           - {label: Description, name: description, widget: text, required: false}
           - label: Images
-            name: images
-            widget: "image"
-            choose_url: true
-            allow_multiple: true
+          name: images
+          widget: "list"
+          required: false
+          fields:
+            - {label: Image, name: image, widget: image, required: false, choose_url: true}
 
