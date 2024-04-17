@@ -7,11 +7,19 @@ collections:
   - name: "entry"
     label: "Entry"
     folder: "content"
+    format: json
     create: true
+    identifier_field: name
+    sortable_fields: [name]
     slug: "{{slug}}"
     fields:
       - {label: "Name", name: "name", widget: "string"}
-      - {label: "Intro Text", name: "introtext", widget: "text", required: false}
+      - {label: "Intro Text", name: "introtext", widget: "markdown", required: false}
+      - label: "Misc Images"
+        name: "miscimages"
+        widget: "list"
+        fields: 
+          - {label: Image, name: image, widget: image, required: false, choose_url: true}
       - label: "Songs"
         name: "songs"
         widget: "list"
@@ -20,11 +28,13 @@ collections:
           - {label: Song Name, name: songname, widget: string}
           - {label: Artist Name, name: artistname, widget: string}
           - {label: Link, name: link, widget: string}
-          - {label: Description, name: description, widget: text, required: false}
+          - {label: SoundCloud Thumbnail Art URL, name: scArtUrl, widget: string, required: false}
+          - {label: Description, name: description, widget: markdown, required: false}
           - label: Images
-          name: images
-          widget: "list"
-          required: false
-          fields:
-            - {label: Image, name: image, widget: image, required: false, choose_url: true}
+            name: images
+            widget: "list"
+            required: false
+            fields:
+              - {label: Image, name: image, widget: image, required: false, choose_url: true}
+            
 
