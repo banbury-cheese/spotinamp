@@ -1,28 +1,32 @@
 <script lang="ts">
+  import Piano from "$lib/components/Piano.svelte";
+  import SideConsole from "$lib/components/SideConsole.svelte";
   import "../app.css";
   export let data;
 </script>
 
-<div class="w-screen h-screen flex">
-  <div class="flex flex-col basis-1/4">
-    Piano
-    {#each data.entries as entry}
-      <a href="/{entry.slug}">
-        <div
-          class="border-black border border-t-0 first:border-t p-8 hover:bg-gray-300"
-        >
-          {entry.name}
-        </div>
-      </a>
-    {/each}
+<body>
+  <div class="piano">
+    <Piano entries={data.entries} />
   </div>
-
-  <div class="flex-grow basis-1/2 h-full overflow-auto">
+  <div class="musicSheet">
     <slot />
   </div>
-  <div class="basis-1/4 border-black border">
-    sidebar
-    <div>interface</div>
-    <div>speaker</div>
+  <div class="playerBody">
+    <SideConsole />
   </div>
-</div>
+</body>
+
+<style lang="scss">
+  body {
+    @apply w-screen h-screen flex;
+  }
+
+  .musicSheet {
+    @apply flex-grow basis-1/2 h-full overflow-auto;
+  }
+
+  .playerBody {
+    @apply basis-1/4 border-black border;
+  }
+</style>
