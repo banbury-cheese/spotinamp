@@ -25,6 +25,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"svelte-markdown": "^0.4.1"
+		"svelte-markdown": "^0.4.1",
+		"tone": "^14.7.77"
 	}
 }
