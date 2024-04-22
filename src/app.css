@@ -42,3 +42,17 @@ body {
   height: 100%;
   background-color: #f5f4ee;
 }
+
+@layer base {
+  @font-face {
+    font-family: "Eurostile";
+    font-weight: 600;
+    src: url("./lib/fonts/Eurostile-Bol.otf");
+  }
+
+  @font-face {
+    font-family: "Eurostile";
+    font-weight: 400;
+    src: url("./lib/fonts/Eurostile-Med.otf");
+  }
+}

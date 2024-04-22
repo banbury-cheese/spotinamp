@@ -18,6 +18,10 @@
 </body>
 
 <style lang="scss">
+  .piano {
+    @apply z-[1] flex-shrink-0 overflow-auto w-[300px] xl:flex-shrink xl:basis-1/4 xl:min-w-[300px];
+  }
+
   body {
     @apply w-screen h-screen flex;
   }
