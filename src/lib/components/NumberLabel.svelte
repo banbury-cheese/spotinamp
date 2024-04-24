@@ -8,6 +8,6 @@
 
 <style lang="scss">
   .numberLabel {
-    @apply rounded-[10rem] border-black border w-8 h-8 flex-shrink-0 flex justify-center items-center mx-2;
+    @apply w-8 h-8 border-inherit border rounded-[8rem] -my-[1px] flex-shrink-0 flex justify-center items-center;
   }
 </style>

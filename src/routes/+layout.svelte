@@ -1,6 +1,7 @@
 <script lang="ts">
   import Piano from "$lib/components/Piano.svelte";
   import SideConsole from "$lib/components/SideConsole.svelte";
+  import MainSection from '$lib/components/MainSection.svelte';
   import "../app.css";
   export let data;
 </script>
@@ -9,9 +10,9 @@
   <div class="piano">
     <Piano entries={data.entries} />
   </div>
-  <div class="musicSheet">
+  <MainSection {data}>
     <slot />
-  </div>
+  </MainSection>
   <div class="playerBody">
     <SideConsole />
   </div>

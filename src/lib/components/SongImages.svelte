@@ -3,10 +3,10 @@
   export let song: SongEntry;
 </script>
 
-{#if song.images && song.images[0].image}
-  <div class="flex flex-wrap gap-4">
+{#if song.images && song.images[0] && song.images[0].image}
+  <div class="flex flex-wrap flex-shrink flex-grow basis-0 min-w-[120px] gap-2">
     {#each song.images as imageObj}
-      <img alt="attached markdown note" src={imageObj.image} />
+      <img src={imageObj.image} />
     {/each}
   </div>
 {/if}

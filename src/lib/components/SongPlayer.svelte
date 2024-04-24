@@ -1,49 +1,66 @@
 <script lang="ts">
   import type { SongEntry } from "$lib/types";
+  import { currentEmbedCode, musicIsPlaying, YTplayer } from "$lib/stores";
+  import Dog from "$lib/images/dog.svg";
   let w: number;
   $: h = w * 0.5625;
-  let showPlayer = false;
-  const resizeYTPlayer = () => {
-    h = w * 0.5625;
+  $: changeVideo($currentEmbedCode);
+  $: musicStarted = false;
+  let player;
+  const changeVideo = (id) => {
+    console.log(id);
+    if (id) {
+      if (player) {
+        player.loadVideoById(id);
+      } else {
+        if (window.YT) {
+          load();
+        } else {
+          window.onYouTubeIframeAPIReady = load;
+        }
+      }
+      musicStarted = true;
+    }
   };
-  const showYTPlayer = () => {
-    showPlayer = true;
-  };
-  export let song: SongEntry;
-  let embedCode = song.link.split("v=").at(-1);
-  console.log(embedCode);
+  function load() {
+    player = new YT.Player("ytplayer", {
+      height: "100%",
+      width: "100%",
+      videoId: $currentEmbedCode,
+      playerVars: {
+        autoplay: 1,
+        color: "white",
+        playsinline: 1,
+      },
+      events: {
+        onStateChange: playerStateChange,
+      },
+    });
+    YTplayer.set(player);
+  }
+  function playerStateChange({ data }) {
+    if (data == 1) {
+      musicIsPlaying.set(true);
+    } else {
+      musicIsPlaying.set(false);
+    }
+  }
 </script>
 
-<svelte:window
-  on:resize={() => {
-    resizeYTPlayer();
-  }}
-/>
+<svelte:head>
+  <script src="https://www.youtube.com/iframe_api"></script>
+</svelte:head>
 
-<div class="w-full" bind:clientWidth={w} style="height: {h}px">
-  {#if showPlayer}
-    <iframe
-      class="w-full h-full"
-      src="https://www.youtube.com/embed/{embedCode}"
-      frameborder="0"
-      allow=""
-      title="YouTube Video Player"
-    >
-    </iframe>
-  {:else}
-    <button
-      on:click={() => {
-        showYTPlayer();
-      }}
-      on:keydown={(event) => {
-        if (event.key === "Enter") {
-          showYTPlayer();
-        }
-      }}
-      class="absolute w-full h-full"
-    >
-      <div>cover art</div>
-      <div>Play Icon</div>
-    </button>
-  {/if}
+<div class="w-full pb-[56.25%] relative">
+  <div
+    class="absolute top-0 bottom-0 right-0 left-0
+    bg-gradient-to-tr from-black via-grey6 to-grey5 flex"
+  >
+    <div id="ytplayer"></div>
+  </div>
+
+  <img
+    src={Dog}
+    class="{musicStarted ? 'hidden' : ''} h-full pt-[20%] absolute -z-1"
+  />
 </div>
