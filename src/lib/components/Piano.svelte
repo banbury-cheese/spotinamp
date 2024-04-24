@@ -4,6 +4,7 @@
   import * as Tone from "tone";
   import { onMount } from "svelte";
   export let entries: Entry[];
+  import { gsap } from "gsap";
 
   import C1 from "$lib/audio/C1.wav";
   import C2 from "$lib/audio/C2.wav";
@@ -23,6 +24,9 @@
   import B3 from "$lib/audio/B3.wav";
   import B4 from "$lib/audio/B4.wav";
   import B5 from "$lib/audio/B5.wav";
+  import { scale } from "svelte/transition";
+
+  gsap.registerPlugin();
 
   let notesInOrder = [
     "B7",
@@ -291,7 +295,7 @@
     <div
       class=" 
 			{entry.slug === $page.params.name ? 'text-black' : 'text-grey4'}
-      'right-0 top-0 w-8 h-20'} absolute text-xs tracking-wide flex justify-center items-center rounded-[10rem]"
+      right-0 top-0 w-8 h-20 absolute text-xs tracking-wide flex justify-center items-center rounded-[10rem]"
     >
       {notesInOrder[idx % notesInOrder.length]}
     </div>
@@ -307,8 +311,16 @@
       }}
       role="button"
       tabindex="0"
+      on:mouseenter={(event) => {
+        // console.log(event.target);
+        // gsap.to(event.target, {
+        //   // attr: { y1: "1.2" },
+        //   scale: 1.1,
+        //   duration: 0.2,
+        // });
+      }}
     >
-      <svg
+      <!-- <svg
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
         width="232"
@@ -352,15 +364,38 @@
             fill="#545454"
           />
         </g>
-      </svg>
+      </svg> -->
     </div>
   </div>
 {/each}
 
 <style lang="scss">
   .key-container {
-    @apply border-l-0 -mt-[1px] relative rounded-r-md bg-[#D7D1C6];
-    border: 1px solid #707070;
+    @apply -mt-[1px] relative bg-[#D7D1C6] -ml-1;
+    /* border: 1px solid #707070; */
+
+    border-left: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+    border-top: 1px solid #d7d1c6;
+
+    border-radius: 5px;
+    box-shadow:
+      -1px 0 0 rgba(255, 255, 255, 0.8) inset,
+      0 0 5px #ccc inset,
+      0 0 3px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(to bottom, #d7d1c6 0%, #fff 100%);
+    transition: all 0.1s ease-in-out;
+
+    &:active {
+      border-top: 1px solid #777;
+      border-left: 1px solid #999;
+      border-bottom: 1px solid #999;
+      box-shadow:
+        2px 0 3px rgba(0, 0, 0, 0.1) inset,
+        -5px 5px 20px rgba(0, 0, 0, 0.2) inset,
+        0 0 3px rgba(0, 0, 0, 0.2);
+      background: linear-gradient(to left, #d7d1c6 0%, #e9e9e9 100%);
+    }
 
     &:nth-child(7n + 4),
     &:nth-child(7n),
@@ -377,9 +412,26 @@
     }
 
     .black-key {
-      @apply h-10 absolute top-[3.75rem] w-[12.5vw] z-10 rounded-r-md;
+      @apply h-10 absolute top-[3.75rem] w-[12.5vw] z-10 rounded-r-md flex;
       svg {
-        @apply h-full w-full;
+        @apply h-full w-full -ml-1;
+      }
+
+      border: 1px solid #000;
+      border-radius: 0 3px 3px 3px;
+      box-shadow:
+        -1px -1px 2px rgba(255, 255, 255, 0.2) inset,
+        0 -5px 2px 3px rgba(0, 0, 0, 0.6) inset,
+        0 2px 4px rgba(0, 0, 0, 0.5);
+      background: linear-gradient(45deg, #222 0%, #555 100%);
+      transition: all 0.1s ease-in-out;
+
+      &:active {
+        box-shadow:
+          -1px -1px 2px rgba(255, 255, 255, 0.2) inset,
+          0 -2px 2px 3px rgba(0, 0, 0, 0.6) inset,
+          0 1px 2px rgba(0, 0, 0, 0.5);
+        background: linear-gradient(to right, #444 0%, #222 100%);
       }
     }
   }

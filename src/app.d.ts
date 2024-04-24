@@ -10,4 +10,7 @@ declare global {
 	}
 }
 
+declare module "jquery";
+
+
 export {};
