@@ -9,6 +9,7 @@
 
   export let song: SongEntry;
   export let idx: number;
+  export let entry: Entry;
 
   const playSong = () => {
     let embedCode = song.link.split("v=").at(-1);

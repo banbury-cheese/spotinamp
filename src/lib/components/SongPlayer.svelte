@@ -6,6 +6,7 @@
     currentYTStatus,
   } from "$lib/stores";
   import Dog from "$lib/images/dog.svg";
+  import { page } from "$app/stores";
   let w: number;
   $: h = w * 0.5625;
   $: changeVideo($currentEmbedCode);
@@ -41,16 +42,17 @@
     });
     YTplayer.set(player);
   }
-  
+
   function playerStateChange({ data }) {
     currentYTStatus.set(data);
     if (data == 0) {
-      if ($embedCodeList) {
-        let currIdx = $embedCodeList.findIndex(
+      if ($embedCodeList && $embedCodeList[$page.params.name]) {
+        let currEmbedCodeList = $embedCodeList[$page.params.name];
+        let currIdx = currEmbedCodeList.findIndex(
           (embedCode) => embedCode === $currentEmbedCode
         );
-        if (currIdx !== -1 && currIdx < $embedCodeList.length - 1) {
-          currentEmbedCode.set($embedCodeList[currIdx + 1]);
+        if (currIdx !== -1 && currIdx < currEmbedCodeList.length - 1) {
+          currentEmbedCode.set(currEmbedCodeList[currIdx + 1]);
         }
       }
     }
