@@ -5,13 +5,14 @@
     embedCodeList,
     currentYTStatus,
   } from "$lib/stores";
-  import Dog from "$lib/images/dog.svg";
   import { page } from "$app/stores";
+  import Dog from "$lib/images/dog.svg";
   let w: number;
   $: h = w * 0.5625;
   $: changeVideo($currentEmbedCode);
   $: musicStarted = false;
   let player: any;
+
   const changeVideo = (id: string | undefined) => {
     if (id) {
       if (player) {
@@ -26,6 +27,7 @@
       musicStarted = true;
     }
   };
+
   function load() {
     player = new YT.Player("ytplayer", {
       height: "100%",
@@ -40,6 +42,7 @@
         onStateChange: playerStateChange,
       },
     });
+
     YTplayer.set(player);
   }
 
@@ -73,6 +76,7 @@
 
   <img
     src={Dog}
+    alt="dog sillhouette"
     class="{musicStarted ? 'hidden' : ''} h-full pt-[20%] absolute -z-1"
   />
 </div>
