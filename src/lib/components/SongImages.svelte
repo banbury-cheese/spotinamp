@@ -8,7 +8,7 @@
     class="flex flex-wrap flex-shrink flex-grow basis-0 min-w-[120px] gap-2 items-start justify-centers"
   >
     {#each song.images as imageObj}
-      <img src={imageObj.image} />
+      <img src={imageObj.image} alt='' />
     {/each}
   </div>
 {/if}
