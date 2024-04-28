@@ -1,38 +1,45 @@
 <script lang="ts">
   import type { SongEntry } from "$lib/types.js";
-  import { currentEmbedCode, YTplayer, musicIsPlaying } from "$lib/stores";
+  import { currentEmbedCode, YTplayer, currentYTStatus } from "$lib/stores";
   import { onMount } from "svelte";
 
   export let song: SongEntry;
-  export let idx: number;
+
+  $: $currentYTStatus, checkStatus();
 
   let paused = true;
   let embedCode = song.link.split("v=").at(-1);
 
+  const checkStatus = () => {
+    if ($currentEmbedCode === embedCode) {
+      if ($currentYTStatus === 1) {
+        paused = false;
+      } else if ($currentYTStatus === 2) {
+        paused = true;
+      }
+    } else {
+      paused = true;
+    }
+  };
+
   const playSong = () => {
     if ($currentEmbedCode === embedCode) {
-      let playerState = $YTplayer.getPlayerState();
-      if (playerState === 1) {
+      if ($currentYTStatus === 1) {
         $YTplayer.pauseVideo();
         paused = true;
-      } else if (playerState === 2) {
+      } else if ($currentYTStatus === 2) {
         $YTplayer.playVideo();
         paused = false;
       }
     } else {
-      currentEmbedCode.set(embedCode ? embedCode : "");
+      currentEmbedCode.set(embedCode);
       paused = false;
     }
   };
 
   onMount(() => {
     if ($currentEmbedCode === embedCode) {
-      let playerState = $YTplayer.getPlayerState();
-      if (playerState === 1) {
-        paused = false;
-      } else {
-        paused = true;
-      }
+      paused = $currentYTStatus !== 1;
     }
   });
 </script>

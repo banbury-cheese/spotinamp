@@ -4,7 +4,7 @@
   import SongTitle from "./SongTitle.svelte";
   import NumberLabel from "./NumberLabel.svelte";
   import SvelteMarkdown from "svelte-markdown";
-  import type { SongEntry } from "$lib/types.js";
+  import type { Entry, SongEntry } from "$lib/types.js";
   import { currentEmbedCode } from "$lib/stores";
 
   export let song: SongEntry;
@@ -20,12 +20,12 @@
   <div class="flex justify-evenly border-b border-inherit">
     <NumberLabel number={idx + 1}></NumberLabel>
 
-    <PlayButton {song} {idx}></PlayButton>
+    <PlayButton {song}></PlayButton>
   </div>
 
   <div class="tracking-tight">
     <SongTitle {song}></SongTitle>
-  </div>  
+  </div>
   <div class="flex gap-2 flex-wrap min-h-[calc(4rem-2px)] pt-2 pb-4">
     <div
       class="flex-shrink-0 markdown-element text-sm w-fit max-w-md tracking-tight"
