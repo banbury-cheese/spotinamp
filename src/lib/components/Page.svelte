@@ -2,15 +2,16 @@
   import Song from "./Song.svelte";
   import { page } from "$app/stores";
   import type { Entry, SongEntry } from "$lib/types.js";
-  import { addToEmbedCodeList, getEmbedCodeList } from "$lib/stores";
-  export let entry: Entry;
+  import { addToEmbedCodeList, getEmbedCodeList, currentEntry } from "$lib/stores";
+	$: entry = $currentEntry;
 
-  if(!getEmbedCodeList($page.params.name)){
-		let embedCodes = entry.songs.map((song: SongEntry) => song.link.split('v=').at(-1));
-		addToEmbedCodeList($page.params.name, embedCodes);
-	}
+  // if(!getEmbedCodeList($page.params.name)){
+	// 	let embedCodes = entry.songs.map((song: SongEntry) => song.link.split('v=').at(-1));
+	// 	addToEmbedCodeList($page.params.name, embedCodes);
+	// }
 </script>
 
+{#if entry}
 <h1
   class="text-grey6 text-4xl font-serif text-center pt-1 tracking-tighter z-10"
 >
@@ -24,3 +25,4 @@
     {/each}
   {/if}
 </div>
+{/if}

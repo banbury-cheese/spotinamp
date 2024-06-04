@@ -4,13 +4,16 @@
   import MainSection from '$lib/components/MainSection.svelte';
   import "../app.css";
   export let data;
+
+  import { entries } from '$lib/stores';
+	entries.set(data.entries);
 </script>
 
 <body>
   <div class="piano">
     <Piano entries={data.entries} />
   </div>
-  <MainSection {data}>
+  <MainSection>
     <slot />
   </MainSection>
   <div class="playerBody">
