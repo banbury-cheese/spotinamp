@@ -3,7 +3,7 @@
   import { page } from "$app/stores";
   import * as Tone from "tone";
   import { onMount } from "svelte";
-  export let entries: Entry[];
+  import { entries } from "$lib/stores";
   import { gsap } from "gsap";
 
   import C1 from "$lib/audio/C1.wav";
@@ -280,7 +280,7 @@
   });
 </script>
 
-{#each entries as entry, idx}
+{#each $entries as entry, idx}
   <div class="key-container" id="entry-{idx}">
     <a
       href="/{entry.slug}"

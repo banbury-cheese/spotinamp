@@ -11,7 +11,7 @@
 
 <body>
   <div class="piano">
-    <Piano entries={data.entries} />
+    <Piano/>
   </div>
   <MainSection>
     <slot />

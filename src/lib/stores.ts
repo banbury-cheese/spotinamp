@@ -10,7 +10,6 @@ export const currentSong = writable<SongEntry | undefined>();
 export const setCurrentSong = (embedCode: string | undefined) => {
   let entry = get(currentEntry);
   if (entry) {
-    console.log("in setCurrentSong");
     let currSong = entry.songs.find((song) => song.embedCode === embedCode);
     currentSong.set(currSong);
   }
