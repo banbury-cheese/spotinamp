@@ -13,4 +13,4 @@ export const setCurrentSong = (embedCode: string | undefined) => {
     let currSong = entry.songs.find((song) => song.embedCode === embedCode);
     currentSong.set(currSong);
   }
-};
+};  
